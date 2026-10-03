@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Budget Buddy - Login</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-container">
+
+        <!-- Logo -->
+
+        <div class="auth-logo">
+
+            <div class="logo-icon">
+                ●
+            </div>
+
+            <span>BUDGET BUDDY</span>
+
+        </div>
+
+
+        <!-- Login Card -->
+
+        <div class="auth-card">
+
+            <h1>Welcome back</h1>
+
+            <p class="auth-subtitle">
+                Log in to track your spending.
+            </p>
+
+
+            <!-- Error Message -->
+
+            {% if error %}
+
+                <div class="auth-error">
+                    {{ error }}
+                </div>
+
+            {% endif %}
+
+
+            <!-- Login Form -->
+
+            <form method="POST"
+                  action="{{ url_for('login') }}">
+
+
+                <label for="email">
+                    EMAIL
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="you@example.com"
+                    required
+                >
+
+
+                <label for="password">
+                    PASSWORD
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Your password"
+                    required
+                >
+
+
+                <button type="submit"
+                        class="auth-submit">
+
+                    Log in
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- Signup Link -->
+
+        <div class="auth-footer">
+
+            New to Budget Buddy?
+
+            <a href="{{ url_for('signup') }}">
+                Sign up
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
