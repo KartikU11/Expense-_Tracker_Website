@@ -1,4 +1,3 @@
-
 *{
     margin:0;
     padding:0;
@@ -25,7 +24,7 @@ body{
 
     min-height:100vh;
 
-    padding:16px 32px 32px;
+    padding:28px 52px 40px;
 
 }
 
@@ -44,7 +43,7 @@ body{
 
     align-items:center;
 
-    margin-bottom:14px;
+    margin-bottom:20px;
 
 }
 
@@ -58,7 +57,7 @@ body{
 
 .logo img{
 
-    width:90px;
+    width:115px;
 
     height:auto;
 
@@ -74,7 +73,7 @@ body{
 
     align-items:center;
 
-    gap:10px;
+    gap:12px;
 
 }
 
@@ -82,7 +81,7 @@ body{
 
     color:#aaa;
 
-    font-size:11px;
+    font-size:13px;
 
 }
 
@@ -92,11 +91,11 @@ body{
 
     text-decoration:none;
 
-    padding:7px 14px;
+    padding:10px 18px;
 
-    border-radius:8px;
+    border-radius:10px;
 
-    font-size:10px;
+    font-size:13px;
 
     font-weight:600;
 
@@ -153,27 +152,11 @@ body{
 
 .dashboard-container{
 
-    max-width:1120px;
+    width:100%;
+
+    max-width:1530px;
 
     margin:0 auto;
-
-}
-
-
-
-/* =========================
-   LOGO
-========================= */
-
-.logo img{
-
-    width:105px;
-
-    height:auto;
-
-    display:block;
-
-    object-fit:contain;
 
 }
 
@@ -192,9 +175,9 @@ body{
 
     position:relative;
 
-    margin-bottom:15px;
+    min-height:180px;
 
-    min-height:100px;
+    margin-bottom:20px;
 
 }
 
@@ -208,21 +191,21 @@ body{
 
     color:#aaa;
 
-    font-size:10px;
+    font-size:15px;
 
-    margin-bottom:3px;
+    margin-bottom:7px;
 
 }
 
 .intro-text h1{
 
-    font-size:27px;
+    font-size:43px;
 
     line-height:1.2;
 
     font-weight:600;
 
-    letter-spacing:-.5px;
+    letter-spacing:-1px;
 
 }
 
@@ -236,9 +219,9 @@ body{
 
     color:#999;
 
-    font-size:10px;
+    font-size:15px;
 
-    margin-top:5px;
+    margin-top:9px;
 
 }
 
@@ -261,25 +244,25 @@ body{
 
     align-items:center;
 
-    gap:9px;
+    gap:13px;
 
-    padding:9px 12px;
+    padding:14px 18px;
 
-    min-width:125px;
+    min-width:205px;
 
     background:#11181e;
 
     border:1px solid #202a32;
 
-    border-radius:8px;
+    border-radius:12px;
 
 }
 
 .calendar-icon{
 
-    width:25px;
+    width:40px;
 
-    height:25px;
+    height:40px;
 
     display:flex;
 
@@ -289,11 +272,11 @@ body{
 
     border:1px solid #32404b;
 
-    border-radius:6px;
+    border-radius:9px;
 
     color:#7db6e8;
 
-    font-size:12px;
+    font-size:17px;
 
 }
 
@@ -301,9 +284,9 @@ body{
 
     display:block;
 
-    font-size:10px;
+    font-size:15px;
 
-    font-weight:500;
+    font-weight:600;
 
 }
 
@@ -313,63 +296,11 @@ body{
 
     color:#777;
 
-    font-size:7px;
+    font-size:10px;
 
-    margin-top:1px;
-
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:600px){
-
-    .logo img{
-
-        width:90px;
-
-    }
-
-    .dashboard-intro{
-
-        flex-direction:column;
-
-        min-height:auto;
-
-        gap:12px;
-
-    }
-
-    .intro-text{
-
-        text-align:center;
-
-        width:100%;
-
-    }
-
-    .intro-text h1{
-
-        font-size:24px;
-
-    }
-
-    .date-card{
-
-        position:static;
-
-        transform:none;
-
-        width:100%;
-
-        justify-content:center;
-
-    }
+    margin-top:3px;
 
 }
-
 
 
 /* =========================
@@ -382,23 +313,23 @@ body{
 
     grid-template-columns:repeat(3,1fr);
 
-    gap:11px;
+    gap:18px;
 
-    margin-bottom:11px;
+    margin-bottom:18px;
 
 }
 
 .summary-card{
 
-    min-height:76px;
+    min-height:166px;
 
     display:flex;
 
     align-items:flex-start;
 
-    gap:11px;
+    gap:18px;
 
-    padding:11px 13px;
+    padding:23px 24px;
 
     background:
         linear-gradient(
@@ -409,7 +340,7 @@ body{
 
     border:1px solid #202a31;
 
-    border-radius:8px;
+    border-radius:12px;
 
     position:relative;
 
@@ -429,7 +360,7 @@ body{
 
     bottom:0;
 
-    width:3px;
+    width:4px;
 
 }
 
@@ -452,15 +383,17 @@ body{
 }
 
 
-/* Summary Icons */
+/* =========================
+   SUMMARY ICONS
+========================= */
 
 .summary-icon{
 
-    width:29px;
+    width:46px;
 
-    height:29px;
+    height:46px;
 
-    min-width:29px;
+    min-width:46px;
 
     display:flex;
 
@@ -470,15 +403,15 @@ body{
 
     border-radius:50%;
 
-    margin-top:1px;
+    margin-top:0;
 
 }
 
 .summary-icon svg{
 
-    width:15px;
+    width:23px;
 
-    height:15px;
+    height:23px;
 
     fill:none;
 
@@ -526,25 +459,25 @@ body{
 
     color:#82909b;
 
-    font-size:7px;
+    font-size:11px;
 
     font-weight:500;
 
-    letter-spacing:.4px;
+    letter-spacing:.7px;
 
-    margin-bottom:2px;
+    margin-bottom:6px;
 
 }
 
 .summary-info h2{
 
-    font-size:16px;
+    font-size:27px;
 
     line-height:1.2;
 
     font-weight:600;
 
-    margin-bottom:2px;
+    margin-bottom:8px;
 
 }
 
@@ -552,7 +485,7 @@ body{
 
     color:#6e7981;
 
-    font-size:7px;
+    font-size:10px;
 
 }
 
@@ -560,7 +493,7 @@ body{
 
     display:block;
 
-    margin-top:5px;
+    margin-top:11px;
 
     background:#63dc55;
 
@@ -568,11 +501,11 @@ body{
 
     border:none;
 
-    padding:3px 8px;
+    padding:7px 13px;
 
-    border-radius:4px;
+    border-radius:6px;
 
-    font-size:7px;
+    font-size:10px;
 
     font-weight:600;
 
@@ -587,19 +520,21 @@ body{
 }
 
 
-/* Summary Progress */
+/* =========================
+   SUMMARY PROGRESS
+========================= */
 
 .summary-progress{
 
     width:100%;
 
-    height:4px;
+    height:6px;
 
     background:#283139;
 
     border-radius:10px;
 
-    margin-top:7px;
+    margin-top:12px;
 
     overflow:hidden;
 
@@ -644,7 +579,7 @@ body{
 
     grid-template-columns:1.8fr 1fr;
 
-    gap:11px;
+    gap:18px;
 
 }
 
@@ -664,15 +599,15 @@ body{
 
     border:1px solid #202b32;
 
-    border-radius:8px;
+    border-radius:12px;
 
 }
 
 .transactions{
 
-    min-height:165px;
+    min-height:270px;
 
-    padding:9px 11px;
+    padding:18px 20px;
 
 }
 
@@ -684,7 +619,7 @@ body{
 
     align-items:center;
 
-    padding-bottom:7px;
+    padding-bottom:13px;
 
     border-bottom:1px solid #1b252c;
 
@@ -696,13 +631,13 @@ body{
 
     align-items:center;
 
-    gap:7px;
+    gap:10px;
 
 }
 
 .panel-title h3{
 
-    font-size:10px;
+    font-size:15px;
 
     font-weight:600;
 
@@ -711,13 +646,15 @@ body{
 }
 
 
-/* Panel Icons */
+/* =========================
+   PANEL ICONS
+========================= */
 
 .title-icon{
 
-    width:15px;
+    width:20px;
 
-    height:15px;
+    height:20px;
 
     display:flex;
 
@@ -727,15 +664,15 @@ body{
 
     border-radius:50%;
 
-    font-size:9px;
+    font-size:12px;
 
 }
 
 .title-icon svg{
 
-    width:14px;
+    width:18px;
 
-    height:14px;
+    height:18px;
 
     fill:none;
 
@@ -768,11 +705,11 @@ body{
 
     border:none;
 
-    padding:5px 9px;
+    padding:9px 15px;
 
-    border-radius:5px;
+    border-radius:7px;
 
-    font-size:8px;
+    font-size:12px;
 
     font-weight:600;
 
@@ -801,7 +738,7 @@ body{
 
 .item{
 
-    min-height:41px;
+    min-height:66px;
 
     display:grid;
 
@@ -809,7 +746,7 @@ body{
 
     align-items:center;
 
-    padding:6px 8px;
+    padding:10px 12px;
 
     border-bottom:1px solid #172127;
 
@@ -830,7 +767,7 @@ body{
 }
 
 
-/* Transaction Left Side */
+/* Transaction Left */
 
 .item > div:first-child{
 
@@ -840,9 +777,9 @@ body{
 
     position:relative;
 
-    padding-left:38px;
+    padding-left:48px;
 
-    min-height:29px;
+    min-height:40px;
 
 }
 
@@ -857,9 +794,9 @@ body{
 
     left:0;
 
-    width:28px;
+    width:38px;
 
-    height:28px;
+    height:38px;
 
     display:flex;
 
@@ -873,12 +810,12 @@ body{
 
     color:#64df75;
 
-    font-size:11px;
+    font-size:15px;
 
 }
 
 
-/* Different category colors */
+/* Category Colors */
 
 .item[data-category="Work"] > div:first-child::before{
 
@@ -917,7 +854,7 @@ body{
 
 .item > div:first-child strong{
 
-    font-size:9px;
+    font-size:13px;
 
     font-weight:600;
 
@@ -932,13 +869,13 @@ body{
 
     position:absolute;
 
-    left:38px;
+    left:48px;
 
-    top:17px;
+    top:24px;
 
     color:#72808a;
 
-    font-size:7px;
+    font-size:9px;
 
 }
 
@@ -953,9 +890,9 @@ body{
 
     align-items:flex-end;
 
-    gap:4px;
+    gap:6px;
 
-    font-size:9px;
+    font-size:12px;
 
     font-weight:600;
 
@@ -974,11 +911,11 @@ body{
 
     border:1px solid #30252a;
 
-    width:22px;
+    width:28px;
 
-    height:20px;
+    height:25px;
 
-    border-radius:5px;
+    border-radius:6px;
 
     display:flex;
 
@@ -986,7 +923,7 @@ body{
 
     justify-content:center;
 
-    font-size:9px;
+    font-size:11px;
 
     cursor:pointer;
 
@@ -1013,9 +950,9 @@ body{
 
     text-align:center;
 
-    padding:32px 10px;
+    padding:70px 10px;
 
-    font-size:9px;
+    font-size:13px;
 
 }
 
@@ -1030,19 +967,19 @@ body{
 
     flex-direction:column;
 
-    gap:9px;
+    gap:14px;
 
 }
 
 .box{
 
-    padding:9px 11px;
+    padding:18px 20px;
 
 }
 
 .box .panel-title{
 
-    margin-bottom:7px;
+    margin-bottom:15px;
 
 }
 
@@ -1059,7 +996,7 @@ body{
 
 .category-row{
 
-    margin-bottom:6px;
+    margin-bottom:12px;
 
 }
 
@@ -1071,7 +1008,7 @@ body{
 
     align-items:center;
 
-    margin-bottom:4px;
+    margin-bottom:6px;
 
 }
 
@@ -1081,9 +1018,9 @@ body{
 
     align-items:center;
 
-    gap:6px;
+    gap:8px;
 
-    font-size:8px;
+    font-size:12px;
 
     font-weight:500;
 
@@ -1091,9 +1028,9 @@ body{
 
 .category-dot{
 
-    width:7px;
+    width:9px;
 
-    height:7px;
+    height:9px;
 
     border-radius:50%;
 
@@ -1103,7 +1040,7 @@ body{
 
 .category-percent{
 
-    font-size:7px;
+    font-size:10px;
 
     color:#ddd;
 
@@ -1111,7 +1048,7 @@ body{
 
 .category-bar{
 
-    height:4px;
+    height:6px;
 
     width:100%;
 
@@ -1139,14 +1076,14 @@ body{
 
     float:right;
 
-    font-size:7px;
+    font-size:10px;
 
     color:#a9b0b5;
 
 }
 
 
-/* Category colors */
+/* Category Colors */
 
 .category-row:nth-child(2) .category-dot{
 
@@ -1181,13 +1118,13 @@ body{
 
     justify-content:space-between;
 
-    padding-top:5px;
+    padding-top:9px;
 
-    margin-top:5px;
+    margin-top:9px;
 
     border-top:1px solid #1c272e;
 
-    font-size:8px;
+    font-size:11px;
 
     font-weight:600;
 
@@ -1206,7 +1143,7 @@ body{
 
     align-items:center;
 
-    margin-bottom:6px;
+    margin-bottom:9px;
 
 }
 
@@ -1214,7 +1151,7 @@ body{
 
     color:#bfc6ca;
 
-    font-size:8px;
+    font-size:11px;
 
     font-weight:500;
 
@@ -1224,7 +1161,7 @@ body{
 
     color:#bfc6ca;
 
-    font-size:7px;
+    font-size:10px;
 
 }
 
@@ -1232,7 +1169,7 @@ body{
 
     width:100%;
 
-    height:5px;
+    height:7px;
 
     background:#26323a;
 
@@ -1260,11 +1197,11 @@ body{
 
 .health-message{
 
-    margin-top:6px;
+    margin-top:9px;
 
     color:#52df68;
 
-    font-size:7px;
+    font-size:10px;
 
 }
 
@@ -1852,19 +1789,40 @@ body{
    RESPONSIVE
 ========================= */
 
+@media(max-width:1200px){
+
+    body{
+
+        padding:25px 30px 35px;
+
+    }
+
+    .dashboard-container{
+
+        max-width:1100px;
+
+    }
+
+    .intro-text h1{
+
+        font-size:38px;
+
+    }
+
+}
+
+
 @media(max-width:900px){
 
     body{
 
-        padding:18px 20px 30px;
+        padding:20px;
 
     }
 
     .dashboard-intro{
 
-        align-items:flex-start;
-
-        gap:15px;
+        min-height:150px;
 
     }
 
@@ -1880,9 +1838,19 @@ body{
 
     }
 
-    .intro-text h1{
+    .date-card{
 
-        font-size:25px;
+        position:static;
+
+        transform:none;
+
+    }
+
+    .dashboard-intro{
+
+        flex-direction:column;
+
+        gap:20px;
 
     }
 
@@ -1905,7 +1873,7 @@ body{
 
     .logo img{
 
-        width:80px;
+        width:85px;
 
     }
 
@@ -1925,23 +1893,47 @@ body{
 
         flex-direction:column;
 
+        min-height:auto;
+
+        margin-bottom:25px;
+
+    }
+
+    .intro-text h1{
+
+        font-size:28px;
+
+    }
+
+    .intro-description{
+
+        font-size:12px;
+
     }
 
     .date-card{
 
         width:100%;
 
+        justify-content:center;
+
     }
 
     .overview{
 
-        gap:8px;
+        gap:12px;
 
     }
 
     .summary-card{
 
-        min-height:90px;
+        min-height:140px;
+
+    }
+
+    .summary-info h2{
+
+        font-size:24px;
 
     }
 
@@ -1953,25 +1945,25 @@ body{
 
     .add-btn{
 
-        padding:6px 10px;
+        padding:7px 11px;
 
     }
 
     .transactions{
 
-        padding:9px;
+        padding:12px;
 
     }
 
     .item{
 
-        padding:7px 4px;
+        padding:8px 4px;
 
     }
 
     .sidebar{
 
-        gap:8px;
+        gap:10px;
 
     }
 
