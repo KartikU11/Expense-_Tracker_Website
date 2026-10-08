@@ -1986,3 +1986,188 @@ body{
     }
 
 }
+
+/* =========================
+   BUDGET MODAL
+========================= */
+
+.budget-modal-content{
+
+    max-width:420px;
+
+}
+
+.budget-input-wrapper{
+
+    display:flex;
+
+    align-items:center;
+
+    width:100%;
+
+    background:#090909;
+
+    border:1px solid #333;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+}
+
+.budget-input-wrapper span{
+
+    padding-left:15px;
+
+    color:#63dc55;
+
+    font-size:17px;
+
+    font-weight:600;
+
+}
+
+.budget-input-wrapper input{
+
+    border:none !important;
+
+    margin:0 !important;
+
+    background:transparent !important;
+
+    padding-left:8px !important;
+
+}
+
+.budget-input-wrapper:focus-within{
+
+    border-color:#b5ff3c;
+
+}
+
+
+/* =========================
+   MODAL ERROR
+========================= */
+
+.modal-error{
+
+    min-height:18px;
+
+    margin-top:8px;
+
+    color:#ff6b6b;
+
+    font-size:11px;
+
+}
+
+
+/* =========================
+   DELETE MODAL
+========================= */
+
+.delete-modal-content{
+
+    max-width:400px;
+
+    text-align:center;
+
+}
+
+.delete-modal-content h2{
+
+    margin-top:15px;
+
+    font-size:22px;
+
+}
+
+.delete-icon{
+
+    width:52px;
+
+    height:52px;
+
+    margin:0 auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(255,70,70,.12);
+
+    border:1px solid rgba(255,70,70,.25);
+
+    color:#ff5c5c;
+
+    font-size:25px;
+
+    font-weight:600;
+
+}
+
+.delete-message{
+
+    color:#85858c;
+
+    font-size:12px;
+
+    line-height:1.6;
+
+    margin-top:10px;
+
+}
+
+
+/* =========================
+   DELETE BUTTON
+========================= */
+
+.delete-confirm-btn{
+
+    flex:1;
+
+    padding:13px;
+
+    background:#ff5252;
+
+    color:white;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+}
+
+.delete-confirm-btn:hover{
+
+    background:#e64444;
+
+}
+
+
+/* =========================
+   MODAL MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .budget-modal-content,
+    .delete-modal-content{
+
+        width:90%;
+
+        padding:25px;
+
+    }
+
+}

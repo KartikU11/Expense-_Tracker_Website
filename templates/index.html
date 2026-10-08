@@ -480,6 +480,136 @@
 
 </div>
 
+<!-- =========================
+     BUDGET MODAL
+========================= -->
+
+<div class="modal" id="budgetModal">
+
+    <div class="modal-content budget-modal-content">
+
+        <div class="modal-top">
+
+            <div>
+
+                <p class="small-text">
+                    MONTHLY / BUDGET
+                </p>
+
+                <h2>
+                    Edit Budget
+                </h2>
+
+            </div>
+
+            <button class="close-btn"
+                    onclick="closeBudgetModal()">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+        <label>
+            MONTHLY BUDGET
+        </label>
+
+        <div class="budget-input-wrapper">
+
+            <span>₹</span>
+
+            <input
+                type="number"
+                id="budgetInput"
+                placeholder="Enter your budget"
+                min="1"
+            >
+
+        </div>
+
+
+        <p id="budgetError"
+           class="modal-error">
+        </p>
+
+
+        <div class="modal-buttons">
+
+            <button class="cancel-btn"
+                    onclick="closeBudgetModal()">
+
+                Cancel
+
+            </button>
+
+
+            <button class="save-btn"
+                    onclick="saveBudget()">
+
+                Save Budget
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     DELETE CONFIRMATION MODAL
+========================= -->
+
+<div class="modal" id="deleteModal">
+
+    <div class="modal-content delete-modal-content">
+
+        <div class="delete-icon">
+            !
+        </div>
+
+
+        <h2>
+            Delete Transaction?
+        </h2>
+
+
+        <p class="delete-message">
+            Are you sure you want to delete this transaction?
+            This action cannot be undone.
+        </p>
+
+
+        <p id="deleteError"
+           class="modal-error">
+        </p>
+
+
+        <div class="modal-buttons">
+
+            <button class="cancel-btn"
+                    onclick="closeDeleteModal()">
+
+                Cancel
+
+            </button>
+
+
+            <button class="delete-confirm-btn"
+                    onclick="confirmDelete()">
+
+                Delete
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 

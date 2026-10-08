@@ -1,60 +1,25 @@
-// ========================
-// LOAD PAGE
-// ========================
+// ------------------------
+// Load Page
+// ------------------------
 
 window.onload = function () {
 
-    setCurrentMonth();
-
     loadBudget();
-
     loadExpenses();
 
 };
 
 
-// ========================
-// CURRENT MONTH
-// ========================
-
-function setCurrentMonth() {
-
-    const monthElement =
-        document.getElementById("currentMonth");
-
-    if (!monthElement) {
-        return;
-    }
-
-    const now = new Date();
-
-    const month =
-        now.toLocaleString("en-US", {
-            month: "long"
-        });
-
-    const year =
-        now.getFullYear();
-
-    monthElement.innerText =
-        month + " " + year;
-
-}
-
-
-// ========================
-// LOAD BUDGET
-// ========================
+// ------------------------
+// Load Budget
+// ------------------------
 
 async function loadBudget() {
 
     try {
 
-        const response =
-            await fetch("/get_budget");
-
-        const data =
-            await response.json();
+        const response = await fetch("/get_budget");
+        const data = await response.json();
 
         if (!response.ok) {
 
@@ -66,9 +31,7 @@ async function loadBudget() {
 
         updateBudgetDisplay(data.budget);
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.error(error);
 
@@ -77,196 +40,92 @@ async function loadBudget() {
 }
 
 
-// ========================
-// UPDATE BUDGET DISPLAY
-// ========================
+// ------------------------
+// Update Budget Display
+// ------------------------
 
 function updateBudgetDisplay(budget) {
 
-    budget =
-        Number(budget) || 20000;
+    budget = Number(budget) || 20000;
 
-    document.getElementById(
-        "budgetDisplay"
-    ).innerHTML =
+    document.getElementById("budgetDisplay").innerHTML =
         "₹" + budget.toLocaleString();
 
 }
 
 
-// ========================
-// EDIT BUDGET
-// ========================
+// ------------------------
+// Open Budget Modal
+// ------------------------
 
 async function editBudget() {
 
     try {
 
-        const response =
-            await fetch("/get_budget");
-
-        const data =
-            await response.json();
+        const response = await fetch("/get_budget");
+        const data = await response.json();
 
         if (!response.ok) {
 
-            alert(
-                data.message ||
-                "Unable to get budget."
-            );
+            alert(data.message || "Unable to get budget.");
 
             return;
 
         }
 
-        let currentBudget =
-            Number(data.budget) || 20000;
+        let currentBudget = Number(data.budget) || 20000;
 
+        document.getElementById("budgetInput").value = currentBudget;
 
-        let newBudget =
-            prompt(
-                "Enter your monthly budget:",
-                currentBudget
-            );
+        document.getElementById("budgetModal").style.display = "flex";
 
+        setTimeout(function () {
 
-        if (newBudget === null) {
+            document.getElementById("budgetInput").focus();
 
-            return;
+        }, 100);
 
-        }
-
-
-        if (
-            newBudget.trim() === "" ||
-            isNaN(newBudget) ||
-            Number(newBudget) <= 0
-        ) {
-
-            alert(
-                "Please enter a valid budget."
-            );
-
-            return;
-
-        }
-
-
-        const updateResponse =
-            await fetch(
-                "/update_budget",
-                {
-
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body: JSON.stringify({
-
-                        budget:
-                            Number(newBudget)
-
-                    })
-
-                }
-            );
-
-
-        const updateData =
-            await updateResponse.json();
-
-
-        if (!updateResponse.ok) {
-
-            alert(
-                updateData.message ||
-                "Failed to update budget."
-            );
-
-            return;
-
-        }
-
-
-        updateBudgetDisplay(
-            updateData.budget
-        );
-
-
-        loadExpenses();
-
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.error(error);
 
-        alert(
-            "Unable to connect to the server."
-        );
-
     }
 
 }
 
 
-// ========================
-// OPEN MODAL
-// ========================
+// ------------------------
+// Close Budget Modal
+// ------------------------
 
-function openModal() {
+function closeBudgetModal() {
 
-    document.getElementById(
-        "expenseModal"
-    ).style.display = "flex";
+    document.getElementById("budgetModal").style.display = "none";
 
 }
 
 
-// ========================
-// CLOSE MODAL
-// ========================
+// ------------------------
+// Save Budget
+// ------------------------
 
-function closeModal() {
+async function saveBudget() {
 
-    document.getElementById(
-        "expenseModal"
-    ).style.display = "none";
+    const input =
+        document.getElementById("budgetInput");
 
-}
-
-
-// ========================
-// SAVE EXPENSE
-// ========================
-
-async function saveExpense() {
-
-    let amount =
-        Number(
-            document.getElementById(
-                "amount"
-            ).value
-        );
-
-
-    let category =
-        document.getElementById(
-            "category"
-        ).value;
+    const newBudget =
+        input.value.trim();
 
 
     if (
-        amount <= 0 ||
-        isNaN(amount)
+        newBudget === "" ||
+        isNaN(newBudget) ||
+        Number(newBudget) <= 0
     ) {
 
-        alert(
-            "Enter a valid amount."
-        );
+        document.getElementById("budgetError").innerText =
+            "Please enter a valid budget.";
 
         return;
 
@@ -275,32 +134,118 @@ async function saveExpense() {
 
     try {
 
-        const response =
-            await fetch(
-                "/add_expense",
-                {
+        const updateResponse = await fetch("/update_budget", {
 
-                    method: "POST",
+            method: "POST",
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-                    body: JSON.stringify({
+            body: JSON.stringify({
+                budget: Number(newBudget)
+            })
 
-                        amount: amount,
-
-                        category: category
-
-                    })
-
-                }
-            );
+        });
 
 
-        const data =
-            await response.json();
+        const updateData =
+            await updateResponse.json();
+
+
+        if (!updateResponse.ok) {
+
+            document.getElementById("budgetError").innerText =
+                updateData.message ||
+                "Failed to update budget.";
+
+            return;
+
+        }
+
+
+        updateBudgetDisplay(updateData.budget);
+
+        closeBudgetModal();
+
+        await loadExpenses();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("budgetError").innerText =
+            "Unable to connect to the server.";
+
+    }
+
+}
+
+
+// ------------------------
+// Open Add Expense Modal
+// ------------------------
+
+function openModal() {
+
+    document.getElementById("expenseModal").style.display = "flex";
+
+}
+
+
+// ------------------------
+// Close Add Expense Modal
+// ------------------------
+
+function closeModal() {
+
+    document.getElementById("expenseModal").style.display = "none";
+
+}
+
+
+// ------------------------
+// Save Expense
+// ------------------------
+
+async function saveExpense() {
+
+    let amount =
+        Number(document.getElementById("amount").value);
+
+    let category =
+        document.getElementById("category").value;
+
+
+    if (amount <= 0 || isNaN(amount)) {
+
+        alert("Enter a valid amount.");
+
+        return;
+
+    }
+
+
+    try {
+
+        const response = await fetch("/add_expense", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                amount: amount,
+                category: category
+            })
+
+        });
+
+
+        const data = await response.json();
 
 
         if (!response.ok) {
@@ -315,53 +260,41 @@ async function saveExpense() {
         }
 
 
-        document.getElementById(
-            "amount"
-        ).value = "";
-
+        document.getElementById("amount").value = "";
 
         closeModal();
 
-
         await loadExpenses();
 
-    }
 
-    catch (error) {
+    } catch (error) {
 
         console.error(error);
 
-        alert(
-            "Unable to connect to the server."
-        );
+        alert("Unable to connect to the server.");
 
     }
 
 }
 
 
-// ========================
-// LOAD EXPENSES
-// ========================
+// ------------------------
+// Load Expenses
+// ------------------------
 
 async function loadExpenses() {
 
     try {
 
         const response =
-            await fetch(
-                "/get_expenses"
-            );
-
+            await fetch("/get_expenses");
 
         const expenses =
             await response.json();
 
 
-        const transactionList =
-            document.getElementById(
-                "transactionList"
-            );
+        let transactionList =
+            document.getElementById("transactionList");
 
 
         transactionList.innerHTML = "";
@@ -370,141 +303,126 @@ async function loadExpenses() {
         let totalSpent = 0;
 
 
-        if (
-            !Array.isArray(expenses)
-        ) {
+        if (!response.ok) {
 
-            throw new Error(
-                "Invalid expense data."
-            );
+            transactionList.innerHTML =
+                "<p class='empty-state'>Unable to load transactions.</p>";
+
+            return;
 
         }
 
 
-        if (
-            expenses.length === 0
-        ) {
+        if (expenses.length === 0) {
 
-            transactionList.innerHTML = `
+            transactionList.innerHTML =
+                "<p class='empty-state'>No transactions yet.</p>";
 
-                <div class="empty-state">
+        }
 
-                    No transactions yet.
 
-                    <br>
+        // Backend already returns newest first
+        expenses.forEach(function (expense) {
 
-                    Click "+ Add Entry" to add your first transaction.
+            totalSpent += Number(expense.amount);
+
+
+            transactionList.innerHTML += `
+
+                <div class="item"
+                     data-category="${expense.category}">
+
+                    <div>
+
+                        <strong>
+                            ${expense.category}
+                        </strong>
+
+                        <br>
+
+                        <small>
+                            ${expense.date || "Date not available"}
+                        </small>
+
+                    </div>
+
+
+                    <div>
+
+                        -₹${Number(expense.amount).toLocaleString()}
+
+                        <br>
+
+                        <button
+                            class="delete-btn"
+                            onclick="openDeleteModal('${expense.id}')">
+
+                            ✕
+
+                        </button>
+
+                    </div>
 
                 </div>
 
             `;
 
-        }
+        });
 
 
-        // MongoDB already returns newest first.
-        // Therefore, do NOT reverse the array.
+        updateSummary(totalSpent);
 
-        expenses.forEach(
-            function (expense) {
-
-                totalSpent +=
-                    Number(
-                        expense.amount
-                    );
+        updateCategorySplit(expenses);
 
 
-                transactionList.innerHTML += `
-
-                    <div class="item"
-                         data-category="${expense.category}">
-
-                        <div>
-
-                            <strong>
-                                ${expense.category}
-                            </strong>
-
-                            <small>
-                                ${expense.date || "Date not available"}
-                            </small>
-
-                        </div>
-
-
-                        <div>
-
-                            <span>
-                                -₹${Number(
-                                    expense.amount
-                                ).toLocaleString()}
-                            </span>
-
-
-                            <button
-                                class="delete-btn"
-                                onclick="deleteExpense('${expense.id}')"
-                                title="Delete transaction">
-
-                                ✕
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            }
-        );
-
-
-        updateSummary(
-            totalSpent
-        );
-
-
-        updateCategorySplit(
-            expenses
-        );
-
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.error(error);
 
-        document.getElementById(
-            "transactionList"
-        ).innerHTML = `
-
-            <div class="empty-state">
-
-                Unable to load transactions.
-
-            </div>
-
-        `;
+        document.getElementById("transactionList").innerHTML =
+            "<p class='empty-state'>Unable to load transactions.</p>";
 
     }
 
 }
 
 
-// ========================
-// DELETE EXPENSE
-// ========================
+// ------------------------
+// Delete Confirmation Modal
+// ------------------------
 
-async function deleteExpense(
-    expenseId
-) {
+let expenseToDelete = null;
 
-    if (
-        !confirm(
-            "Are you sure you want to delete this transaction?"
-        )
-    ) {
+
+function openDeleteModal(expenseId) {
+
+    expenseToDelete = expenseId;
+
+    document.getElementById("deleteModal").style.display = "flex";
+
+}
+
+
+// ------------------------
+// Close Delete Modal
+// ------------------------
+
+function closeDeleteModal() {
+
+    expenseToDelete = null;
+
+    document.getElementById("deleteModal").style.display = "none";
+
+}
+
+
+// ------------------------
+// Confirm Delete
+// ------------------------
+
+async function confirmDelete() {
+
+    if (!expenseToDelete) {
 
         return;
 
@@ -513,13 +431,12 @@ async function deleteExpense(
 
     try {
 
-        const response =
-            await fetch(
-                `/delete_expense/${expenseId}`,
-                {
-                    method: "DELETE"
-                }
-            );
+        const response = await fetch(
+            `/delete_expense/${expenseToDelete}`,
+            {
+                method: "DELETE"
+            }
+        );
 
 
         const data =
@@ -528,52 +445,44 @@ async function deleteExpense(
 
         if (!response.ok) {
 
-            alert(
+            document.getElementById("deleteError").innerText =
                 data.message ||
-                "Failed to delete expense."
-            );
+                "Failed to delete expense.";
 
             return;
 
         }
 
 
+        closeDeleteModal();
+
         await loadExpenses();
 
-    }
 
-    catch (error) {
+    } catch (error) {
 
         console.error(error);
 
-        alert(
-            "Unable to connect to the server."
-        );
+        document.getElementById("deleteError").innerText =
+            "Unable to connect to the server.";
 
     }
 
 }
 
 
-// ========================
-// UPDATE SUMMARY
-// ========================
+// ------------------------
+// Update Summary
+// ------------------------
 
-function updateSummary(
-    totalSpent
-) {
+function updateSummary(totalSpent) {
 
     let budget =
         Number(
             document
-                .getElementById(
-                    "budgetDisplay"
-                )
+                .getElementById("budgetDisplay")
                 .innerText
-                .replace(
-                    /[₹,]/g,
-                    ""
-                )
+                .replace(/[₹,]/g, "")
         ) || 20000;
 
 
@@ -581,18 +490,12 @@ function updateSummary(
         budget - totalSpent;
 
 
-    document.getElementById(
-        "spentDisplay"
-    ).innerHTML =
-        "₹" +
-        totalSpent.toLocaleString();
+    document.getElementById("spentDisplay").innerHTML =
+        "₹" + totalSpent.toLocaleString();
 
 
-    document.getElementById(
-        "remainingDisplay"
-    ).innerHTML =
-        "₹" +
-        remaining.toLocaleString();
+    document.getElementById("remainingDisplay").innerHTML =
+        "₹" + remaining.toLocaleString();
 
 
     let percentage =
@@ -601,229 +504,124 @@ function updateSummary(
             : 0;
 
 
-    let safePercentage =
-        Math.min(
-            Math.max(
-                percentage,
-                0
-            ),
-            100
-        );
+    let spentPercentage =
+        Math.min(percentage, 100);
 
 
     let remainingPercentage =
-        Math.max(
-            100 - percentage,
-            0
-        );
+        Math.max(0, 100 - percentage);
 
 
-    // Spent progress
+    // Total spent percentage
 
-    const spentProgress =
-        document.getElementById(
-            "spentProgress"
-        );
-
-    if (spentProgress) {
-
-        spentProgress.style.width =
-            safePercentage + "%";
-
-    }
-
-
-    // Remaining progress
-
-    const remainingProgress =
-        document.getElementById(
-            "remainingProgress"
-        );
-
-    if (remainingProgress) {
-
-        remainingProgress.style.width =
-            Math.min(
-                remainingPercentage,
-                100
-            ) + "%";
-
-    }
-
-
-    // Spent percentage
-
-    const spentPercentage =
-        document.getElementById(
-            "spentPercentage"
-        );
-
-    if (spentPercentage) {
-
-        spentPercentage.innerText =
-            percentage.toFixed(1) +
-            "% of your budget";
-
-    }
+    document.getElementById("spentPercentage").innerHTML =
+        percentage.toFixed(1) + "% of your budget";
 
 
     // Remaining percentage
 
-    const remainingPercentageElement =
-        document.getElementById(
-            "remainingPercentage"
-        );
+    document.getElementById("remainingPercentage").innerHTML =
+        remainingPercentage.toFixed(1) + "% of your budget";
 
-    if (
-        remainingPercentageElement
-    ) {
 
-        remainingPercentageElement.innerText =
-            remainingPercentage.toFixed(1) +
-            "% of your budget";
+    // Spent progress
 
-    }
+    document.getElementById("spentProgress").style.width =
+        spentPercentage + "%";
+
+
+    // Remaining progress
+
+    document.getElementById("remainingProgress").style.width =
+        remainingPercentage + "%";
 
 
     // Budget health
 
-    const healthText =
-        document.getElementById(
-            "budgetHealthText"
-        );
-
-    if (healthText) {
-
-        healthText.innerText =
-            "₹" +
-            totalSpent.toLocaleString() +
-            " spent of ₹" +
-            budget.toLocaleString();
-
-    }
+    document.getElementById("budgetProgress").style.width =
+        spentPercentage + "%";
 
 
-    const healthPercentage =
-        document.getElementById(
-            "healthPercentage"
-        );
-
-    if (healthPercentage) {
-
-        healthPercentage.innerText =
-            percentage.toFixed(1) +
-            "%";
-
-    }
+    document.getElementById("budgetHealthText").innerHTML =
+        "₹" + totalSpent.toLocaleString() +
+        " spent of ₹" + budget.toLocaleString();
 
 
-    const budgetProgress =
-        document.getElementById(
-            "budgetProgress"
-        );
-
-    if (budgetProgress) {
-
-        budgetProgress.style.width =
-            safePercentage + "%";
-
-    }
+    document.getElementById("healthPercentage").innerHTML =
+        percentage.toFixed(1) + "%";
 
 
     // Health message
 
-    const healthMessage =
-        document.getElementById(
-            "healthMessage"
-        );
+    let healthMessage =
+        document.getElementById("healthMessage");
 
 
-    if (healthMessage) {
+    if (percentage >= 100) {
 
-        if (percentage >= 100) {
+        healthMessage.innerHTML =
+            "● You have exceeded your budget!";
 
-            healthMessage.innerText =
-                "● You have exceeded your budget.";
+        healthMessage.style.color =
+            "#ff5c5c";
 
-            healthMessage.style.color =
-                "#ff5c5c";
+    } else if (percentage >= 80) {
 
-        }
+        healthMessage.innerHTML =
+            "● You are close to your budget limit.";
 
-        else if (percentage >= 80) {
+        healthMessage.style.color =
+            "#ffb347";
 
-            healthMessage.innerText =
-                "● You're getting close to your budget.";
+    } else {
 
-            healthMessage.style.color =
-                "#ffbd55";
+        healthMessage.innerHTML =
+            "● You're well within your budget!";
 
-        }
-
-        else {
-
-            healthMessage.innerText =
-                "● You're well within your budget.";
-
-            healthMessage.style.color =
-                "#52df68";
-
-        }
+        healthMessage.style.color =
+            "#52df68";
 
     }
 
 }
 
 
-// ========================
-// CATEGORY SPLIT
-// ========================
+// ------------------------
+// Category Split
+// ------------------------
 
-function updateCategorySplit(
-    expenses
-) {
+function updateCategorySplit(expenses) {
 
     let categoryTotals = {};
 
     let total = 0;
 
 
-    expenses.forEach(
-        function (expense) {
+    expenses.forEach(function (expense) {
 
-            let category =
-                expense.category;
+        let category =
+            expense.category;
 
-            let amount =
-                Number(
-                    expense.amount
-                );
+        let amount =
+            Number(expense.amount);
 
 
-            if (
-                !categoryTotals[category]
-            ) {
+        if (!categoryTotals[category]) {
 
-                categoryTotals[category] =
-                    0;
-
-            }
-
-
-            categoryTotals[category] +=
-                amount;
-
-
-            total += amount;
+            categoryTotals[category] = 0;
 
         }
-    );
 
 
-    const categorySplit =
-        document.getElementById(
-            "categorySplit"
-        );
+        categoryTotals[category] += amount;
+
+        total += amount;
+
+    });
+
+
+    let categorySplit =
+        document.getElementById("categorySplit");
 
 
     categorySplit.innerHTML = "";
@@ -831,89 +629,64 @@ function updateCategorySplit(
 
     if (total === 0) {
 
-        categorySplit.innerHTML = `
-
-            <p class="empty-state">
-                No expenses yet.
-            </p>
-
-        `;
+        categorySplit.innerHTML =
+            "<p class='empty-state'>No expenses yet.</p>";
 
         return;
 
     }
 
 
-    Object.keys(
-        categoryTotals
-    ).forEach(
-        function (category) {
+    Object.keys(categoryTotals).forEach(function (category) {
 
-            let percentage =
-                (
-                    categoryTotals[category]
-                    / total
-                ) * 100;
+        let percentage =
+            (categoryTotals[category] / total) * 100;
 
 
-            categorySplit.innerHTML += `
+        categorySplit.innerHTML += `
 
-                <div class="category-row">
+            <div class="category-row">
 
-                    <div class="category-top">
+                <div class="category-top">
 
-                        <div class="category-name">
+                    <div class="category-name">
 
-                            <span class="category-dot"></span>
+                        <span class="category-dot"></span>
 
-                            ${category}
-
-                        </div>
-
-
-                        <span class="category-percent">
-
-                            ${percentage.toFixed(1)}%
-
-                        </span>
+                        ${category}
 
                     </div>
 
-
-                    <div class="category-bar">
-
-                        <span
-                            style="width:${percentage}%">
-                        </span>
-
-                    </div>
-
-
-                    <span class="category-amount">
-
-                        ₹${categoryTotals[
-                            category
-                        ].toLocaleString()}
-
+                    <span class="category-percent">
+                        ${percentage.toFixed(1)}%
                     </span>
-
-                    <div style="clear:both"></div>
 
                 </div>
 
-            `;
 
-        }
-    );
+                <div class="category-bar">
+
+                    <span style="width:${percentage}%"></span>
+
+                </div>
+
+
+                <span class="category-amount">
+                    ₹${categoryTotals[category].toLocaleString()}
+                </span>
+
+            </div>
+
+        `;
+
+    });
 
 
     categorySplit.innerHTML += `
 
         <div class="category-total">
 
-            <span>
-                Total
-            </span>
+            <span>Total</span>
 
             <span>
                 ₹${total.toLocaleString()}
@@ -924,3 +697,59 @@ function updateCategorySplit(
     `;
 
 }
+
+
+// ------------------------
+// Close Modal When Clicking Outside
+// ------------------------
+
+window.addEventListener("click", function (event) {
+
+    const expenseModal =
+        document.getElementById("expenseModal");
+
+    const budgetModal =
+        document.getElementById("budgetModal");
+
+    const deleteModal =
+        document.getElementById("deleteModal");
+
+
+    if (event.target === expenseModal) {
+
+        closeModal();
+
+    }
+
+
+    if (event.target === budgetModal) {
+
+        closeBudgetModal();
+
+    }
+
+
+    if (event.target === deleteModal) {
+
+        closeDeleteModal();
+
+    }
+
+});
+
+
+// ------------------------
+// ESC Key
+// ------------------------
+
+document.addEventListener("keydown", function (event) {
+
+    if (event.key === "Escape") {
+
+        closeModal();
+        closeBudgetModal();
+        closeDeleteModal();
+
+    }
+
+});
